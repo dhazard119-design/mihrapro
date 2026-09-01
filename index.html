@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="tr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+  <!-- ========== SEO & SOSYAL PAYLAŞIM ========== -->
+  <!-- ⚠️ YAYINLAMADAN ÖNCE: SITE_URL'i gerçek alan adınla değiştir (aşağıdaki og:url, og:image, canonical) -->
+  <meta name="description" content="Diyanet uyumlu ezan vakitleri, kıble pusulası, günlük hadis, sünnet ve ilahi kıssalar. Türkiye'nin tüm il ve ilçelerine kadar kapsamlı İslami yaşam uygulaması." />
+  <meta name="keywords" content="ezan vakti, namaz vakti, diyanet, kıble, hadis, kıssa, imsakiye, ramazan, islami uygulama" />
+  <meta name="author" content="Mihrap" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://mihrap.app/" />
+
+  <!-- Open Graph (Facebook / WhatsApp / LinkedIn) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Mihrap" />
+  <meta property="og:title" content="Mihrap — Ezan Vakti & İslami Yaşam" />
+  <meta property="og:description" content="Diyanet uyumlu ezan vakitleri, kıble pusulası, günlük hadis, sünnet ve ilahi kıssalar." />
+  <meta property="og:url" content="https://mihrap.app/" />
+  <meta property="og:image" content="https://mihrap.app/assets/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="tr_TR" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Mihrap — Ezan Vakti & İslami Yaşam" />
+  <meta name="twitter:description" content="Diyanet uyumlu ezan vakitleri, kıble, hadis, sünnet ve kıssalar." />
+  <meta name="twitter:image" content="https://mihrap.app/assets/og-image.png" />
+
+  <meta name="theme-color" content="#0b1e33" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Mihrap" />
+  <title>Mihrap — Ezan Vakti & İslami Yaşam</title>
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" href="assets/icon-192.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Reem+Kufi:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body data-time="maghrib">
+
+  <!-- ======== DEKORATİF ARKA PLAN ======== -->
+  <div class="bg-scene" aria-hidden="true">
+    <div class="bg-gradient"></div>
+    <div class="bg-stars"></div>
+    <div class="bg-orbit bg-orbit--1"></div>
+    <div class="bg-orbit bg-orbit--2"></div>
+    <div class="bg-glow"></div>
+    <div class="bg-calligraphy" aria-hidden="true">الله</div>
+  </div>
+
+  <!-- ======== UYGULAMA ÇERÇEVESİ ======== -->
+  <div class="app-shell">
+
+    <!-- ========== EKRAN: ANA SAYFA ========== -->
+    <section class="screen screen--active" data-screen="home">
+      <header class="topbar">
+        <button class="chip chip--location" id="btnLocation" aria-label="Konum seç">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span id="locationLabel">Ağrı, Merkez</span>
+          <svg class="icon icon--xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+      </header>
+
+      <!-- Özel gün banner'ı (Cuma, Kandil, Bayram, Ramazan) -->
+      <div class="special-banner card" id="specialBanner" hidden>
+        <span class="special-banner__icon" id="specialBannerIcon">🕌</span>
+        <div class="special-banner__body">
+          <span class="special-banner__title" id="specialBannerTitle"></span>
+          <span class="special-banner__text" id="specialBannerText"></span>
+        </div>
+      </div>
+
+      <section class="greeting reveal">
+        <p class="bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+        <h1 class="greeting__title">Selâmün Aleyküm</h1>
+        <p class="greeting__date" id="greetingDate">Cumartesi, 30 Ağustos 2026</p>
+        <p class="greeting__hijri" id="greetingHijri">16 Safer 1448</p>
+      </section>
+
+      <div class="ornament ornament--hero" aria-hidden="true">
+        <svg viewBox="0 0 220 24"><line x1="8" y1="12" x2="82" y2="12"/><line x1="138" y1="12" x2="212" y2="12"/><g transform="translate(110,12)"><path d="M0 -8 C6 -4 6 4 0 8 C-6 4 -6 -4 0 -8 Z"/><circle r="2.6"/></g><circle cx="82" cy="12" r="2.5"/><circle cx="138" cy="12" r="2.5"/></svg>
+      </div>
+
+      <!-- Ramazan Modu: sahur & iftar (Ramazan'dan 2 gün önce görünür) -->
+      <section class="ramadan-home card reveal" id="ramadanHomeCard" hidden>
+        <div class="ramadan-home__head">
+          <span class="ramadan-home__icon">🌙</span>
+          <div class="ramadan-home__headbody">
+            <span class="ramadan-home__title">Ramazan Modu</span>
+            <span class="ramadan-home__sub" id="ramadanHomeSub">Sahur ve iftar vakitleri</span>
+          </div>
+          <button class="ramadan-home__goto" data-goto="ramadan" aria-label="Ramazan moduna git">
+            <svg class="icon icon--xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+        </div>
+        <div class="ramadan-home__times">
+          <div class="ramadan-home__cell ramadan-home__cell--sahur">
+            <span class="ramadan-home__label">🌅 Sahur</span>
+            <span class="ramadan-home__time" id="homeSahurTime">--:--</span>
+            <span class="ramadan-home__left-label">Sahura kalan süre</span>
+            <span class="ramadan-home__left" id="homeSahurLeft">--:--:--</span>
+          </div>
+          <div class="ramadan-home__cell ramadan-home__cell--iftar">
+            <span class="ramadan-home__label">🌇 İftar</span>
+            <span class="ramadan-home__time" id="homeIftarTime">--:--</span>
+            <span class="ramadan-home__left-label">İftara kalan süre</span>
+            <span class="ramadan-home__left" id="homeIftarLeft">--:--:--</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="hero reveal reveal--1">
+        <div class="hero__glow" aria-hidden="true"></div>
+        <div class="hero__ring-wrap">
+          <svg class="hero__ring" viewBox="0 0 200 200" aria-hidden="true">
+            <defs>
+              <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#f5e08a"/><stop offset="55%" stop-color="#d4af37"/><stop offset="100%" stop-color="#9a7b1c"/>
+              </linearGradient>
+              <filter id="ringGlow" x="-30%" y="-30%" width="160%" height="160%">
+                <feGaussianBlur stdDeviation="4" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+            </defs>
+            <circle class="ring-track" cx="100" cy="100" r="88"/>
+            <circle class="ring-progress" id="ringProgress" cx="100" cy="100" r="88" stroke-dasharray="552.92" stroke-dashoffset="165.88"/>
+          </svg>
+          <div class="hero__ring-center">
+            <span class="hero__next-label">Sıradaki Vakit</span>
+            <span class="hero__next-name" id="nextPrayerName">Akşam</span>
+            <span class="hero__next-ar" id="nextPrayerArabic">الْمَغْرِب</span>
+            <span class="hero__countdown" id="countdown">02:14:37</span>
+            <span class="hero__next-time" id="nextPrayerTime">18:35'e kalan</span>
+          </div>
+        </div>
+        <div class="hero__meta">
+          <span class="hero__meta-item"><svg class="icon icon--xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Geri sayım</span>
+          <span class="hero__meta-item"><svg class="icon icon--xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z"/><path d="M12 7v5l3 2"/></svg>Diyanet uyumlu</span>
+        </div>
+      </section>
+
+      <section class="times reveal reveal--2">
+        <div class="section-head">
+          <h2 class="section-title">Bugünün Vakitleri</h2>
+          <span class="section-subtitle" id="timesSubtitle">Ağrı · Merkez</span>
+        </div>
+        <ul class="times__list" id="prayerTimesList"></ul>
+      </section>
+
+      <section class="content reveal reveal--3">
+        <div class="section-head"><h2 class="section-title">Günün Ruhaniyeti</h2></div>
+
+        <article class="card card--hadith" id="hadithCard">
+          <header class="card__head card__head--row"><span class="card__tag card__tag--gold"><svg class="icon icon--xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>Günün Hadisi</span><div class="card__actions"><button class="speak-btn" data-speak="hadith" aria-label="Hadisi dinle"><svg class="icon icon--xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5Z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a9 9 0 0 1 0 14"/></svg></button><button class="share-btn" data-share="hadith" aria-label="Hadisi paylaş"><svg class="icon icon--xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.59 13.51 6.83 3.98"/><path d="m15.41 6.51-6.82 3.98"/></svg></button></div></header>
+          <p class="card__arabic" id="hadithArabic"></p>
+          <p class="card__text" id="hadithText"></p>
+          <footer class="card__foot"><span class="card__source" id="hadithSource"></span></footer>
+        </article>
+
+        <article class="card card--sunnah" id="sunnahCard">
+          <header class="card__head card__head--row"><span class="card__tag card__tag--emerald"><svg class="icon icon--xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>Günün Sünneti</span><div class="card__actions"><button class="speak-btn" data-speak="sunnah" aria-label="Sünneti dinle"><svg class="icon icon--xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5Z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a9 9 0 0 1 0 14"/></svg></button><button class="share-btn" data-share="sunnah" aria-label="Sünneti paylaş"><svg class="icon icon--xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.59 13.51 6.83 3.98"/><path d="m15.41 6.51-6.82 3.98"/></svg></button></div></header>
+          <h3 class="card__title" id="sunnahTitle"></h3>
+          <p class="card__text" id="sunnahText"></p>
+          <footer class="card__foot"><span class="card__source" id="sunnahSource"></span></footer>
+        </article>
+
+        <article class="card card--kissa" id="kissaCard">
+          <header class="card__head card__head--row"><span class="card__tag card__tag--gold"><svg class="icon icon--xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>Günün Kıssası</span><div class="card__actions"><button class="speak-btn" data-speak="kissa" aria-label="Kıssayı dinle"><svg class="icon icon--xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5Z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a9 9 0 0 1 0 14"/></svg></button><button class="share-btn" data-share="kissa" aria-label="Kıssayı paylaş"><svg class="icon icon--xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.59 13.51 6.83 3.98"/><path d="m15.41 6.51-6.82 3.98"/></svg></button></div></header>
+          <h3 class="card__title" id="kissaTitle"></h3>
+          <p class="card__text" id="kissaText"></p>
+          <footer class="card__foot"><span class="card__source" id="kissaSource"></span></footer>
+        </article>
+
+        <!-- Ramazan Modu giriş kartı -->
+        <article class="card card--ramadan" data-goto="ramadan" role="button" tabindex="0">
+          <div class="ramadan-entry">
+            <span class="ramadan-entry__icon">🌙</span>
+            <div class="ramadan-entry__body">
+              <h3 class="card__title">Ramazan Modu</h3>
+              <p class="card__text">Sahur & iftar geri sayımı, hatim takibi ve günlük dualar.</p>
+            </div>
+            <svg class="icon icon--xs ramadan-entry__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          </div>
+        </article>
+
+        <!-- Bağış / Destek kartı -->
+        <article class="card card--donate" id="donateCard" role="button" tabindex="0" aria-label="Bize destek ol">
+          <div class="donate-entry">
+            <span class="donate-entry__icon">💚</span>
+            <div class="donate-entry__body">
+              <h3 class="card__title">Bize Destek Ol</h3>
+              <p class="card__text">Mihrap'ı ücretsiz tutmamıza yardımcı olun. Google Play üzerinden dilediğiniz tutarla (1 – 1000 TL) destek olabilirsiniz.</p>
+            </div>
+            <svg class="icon icon--xs donate-entry__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          </div>
+        </article>
+      </section>
+
+      <div class="safe-bottom"></div>
+    </section>
+
+    <!-- ========== EKRAN: VAKİTLER (Aylık Takvim) ========== -->
+    <section class="screen" data-screen="times">
+      <header class="screen__header">
+        <h1 class="screen__title">Vakitler</h1>
+        <span class="screen__sub" id="calSubtitle"></span>
+      </header>
+
+      <div class="segmented" id="timesSegmented">
+        <button class="segmented__btn segmented__btn--active" data-view="calendar">Takvim</button>
+        <button class="segmented__btn" data-view="imsakiye">İmsakiye</button>
+      </div>
+
+      <div class="times-view" id="viewCalendar">
+        <div class="section-head">
+          <h2 class="section-title">Vakitler</h2>
+          <span class="section-subtitle" id="selectedDayLabel">Bugün</span>
+        </div>
+        <ul class="times__list" id="dayTimesList"></ul>
+        <div class="calendar card" id="calendar"></div>
+      </div>
+
+      <div class="times-view times-view--hidden" id="viewImsakiye">
+        <div class="card imsakiye" id="imsakiye"><p class="imsakiye__empty">Yükleniyor...</p></div>
+      </div>
+
+      <div class="safe-bottom"></div>
+    </section>
+
+    <!-- ========== EKRAN: KISSALAR ========== -->
+    <!-- ========== EKRAN: İSLAMI YAŞAMAK ========== -->
+    <section class="screen" data-screen="living">
+      <header class="screen__header">
+        <h1 class="screen__title">İslamı Yaşamak</h1>
+        <span class="screen__sub">Günlük ibadet ve yaşam rehberiniz</span>
+      </header>
+
+      <div class="living-hub" id="livingHub">
+        <div class="living-grid">
+          <button class="living-card" data-living="quran">
+            <span class="living-card__icon">📖</span>
+            <span class="living-card__title">Kur'an-ı Kerim</span>
+            <span class="living-card__desc">Arapça + Türkçe meali</span>
+          </button>
+          <button class="living-card" data-living="mosque">
+            <span class="living-card__icon">🕌</span>
+            <span class="living-card__title">En Yakın Cami</span>
+            <span class="living-card__desc">Konumuna göre bul</span>
+          </button>
+          <button class="living-card" data-living="prayer">
+            <span class="living-card__icon">🤲</span>
+            <span class="living-card__title">Namaz Nasıl Kılınır</span>
+            <span class="living-card__desc">Adım adım rehber</span>
+          </button>
+          <button class="living-card" data-living="abdest">
+            <span class="living-card__icon">🧼</span>
+            <span class="living-card__title">Abdest Nasıl Alınır</span>
+            <span class="living-card__desc">Abdest, gusül, teyemmüm</span>
+          </button>
+          <button class="living-card" data-living="tracker">
+            <span class="living-card__icon">📿</span>
+            <span class="living-card__title">Namaz Takibi</span>
+            <span class="living-card__desc">Vakit vakit işaretle, takip et</span>
+          </button>
+          <button class="living-card" data-living="worship">
+            <span class="living-card__icon">🌙</span>
+            <span class="living-card__title">Oruç & Nâfile</span>
+            <span class="living-card__desc">Sünnet oruçlar ve namazlar</span>
+          </button>
+          <button class="living-card" data-living="zikir">
+            <span class="living-card__icon">📿</span>
+            <span class="living-card__title">Zikirler & Tesbihat</span>
+            <span class="living-card__desc">Sabah-akşam zikirleri</span>
+          </button>
+          <button class="living-card" data-living="dua">
+            <span class="living-card__icon">🤲</span>
+            <span class="living-card__title">Dua Koleksiyonu</span>
+            <span class="living-card__desc">Kategorilere göre dualar</span>
+          </button>
+          <button class="living-card" data-living="tasbih">
+            <span class="living-card__icon">📿</span>
+            <span class="living-card__title">Zikirmatik</span>
+            <span class="living-card__desc">Tesbih sayacı</span>
+          </button>
+          <button class="living-card" data-living="zakat">
+            <span class="living-card__icon">💰</span>
+            <span class="living-card__title">Zekât Hesaplama</span>
+            <span class="living-card__desc">%2,5 zekâtını hesapla</span>
+          </button>
+          <button class="living-card" data-living="qibla">
+            <span class="living-card__icon">🕋</span>
+            <span class="living-card__title">Kıble Bulucu</span>
+            <span class="living-card__desc">Kâbe yönünü bul</span>
+          </button>
+          <button class="living-card" data-living="hatim">
+            <span class="living-card__icon">📖</span>
+            <span class="living-card__title">Hatim Takibi</span>
+            <span class="living-card__desc">30 cüzü işaretle</span>
+          </button>
+          <button class="living-card" data-living="kaza">
+            <span class="living-card__icon">🧾</span>
+            <span class="living-card__title">Kaza Namazı</span>
+            <span class="living-card__desc">Kaza borcunu takip et</span>
+          </button>
+          <button class="living-card" data-living="quiz">
+            <span class="living-card__icon">❓</span>
+            <span class="living-card__title">Bilgi Yarışması</span>
+            <span class="living-card__desc">Dini bilgini test et</span>
+          </button>
+          <button class="living-card" data-living="adab">
+            <span class="living-card__icon">🌿</span>
+            <span class="living-card__title">Yaşam Rehberi</span>
+            <span class="living-card__desc">40 günlük hayat sünneti</span>
+          </button>
+          <button class="living-card" data-living="hicri">
+            <span class="living-card__icon">🌙</span>
+            <span class="living-card__title">Hicri Takvim</span>
+            <span class="living-card__desc">Aylık hicri görünüm</span>
+          </button>
+          <button class="living-card" data-living="gunler">
+            <span class="living-card__icon">🕌</span>
+            <span class="living-card__title">Dini Günler</span>
+            <span class="living-card__desc">Yaklaşan kandil & bayram</span>
+          </button>
+          <button class="living-card" data-living="esmazikir">
+            <span class="living-card__icon">📿</span>
+            <span class="living-card__title">Esma Zikri</span>
+            <span class="living-card__desc">99 ismi sesli zikret</span>
+          </button>
+          <button class="living-card" data-living="hatirlatici">
+            <span class="living-card__icon">⏰</span>
+            <span class="living-card__title">Hatırlatıcılar</span>
+            <span class="living-card__desc">Kendi ibadet alarmlarını kur</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="living-sub" id="livingSub" hidden>
+        <button class="living-back" id="livingBack" aria-label="Geri">
+          <svg class="icon icon--xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg> Geri
+        </button>
+        <div id="livingContent"></div>
+      </div>
+
+      <div class="safe-bottom"></div>
+    </section>
+
+    <!-- ========== EKRAN: AI ASİSTAN ========== -->
+    <section class="screen" data-screen="ai">
+      <header class="screen__header">
+        <h1 class="screen__title">AI Asistan</h1>
+        <span class="screen__sub">Yalnızca dini sorularınızı yanıtlar</span>
+      </header>
+
+      <div class="ai-chat">
+        <div class="ai-chat__messages" id="aiMessages"></div>
+
+        <div class="ai-chat__inputbar">
+          <input type="text" id="aiInput" placeholder="Dini sorunuzu yazın..." autocomplete="off" />
+          <button class="ai-chat__send" id="aiSend" aria-label="Gönder">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+          </button>
+        </div>
+        <p class="ai-chat__note">⚠️ Bu bir yapay zekâ asistanıdır; kesin hüküm için bir din âlimine danışınız.</p>
+      </div>
+
+      <div class="safe-bottom"></div>
+    </section>
+
+    <!-- ========== EKRAN: ESMAÜL HÜSNA ========== -->
+    <!-- ========== EKRAN: RAMAZAN MODU ========== -->
+    <section class="screen" data-screen="ramadan">
+      <header class="screen__header">
+        <h1 class="screen__title">Ramazan Modu</h1>
+        <span class="screen__sub">Sahur, iftar ve hatim takibi</span>
+      </header>
+
+      <!-- Sahur & İftar geri sayımı -->
+      <div class="ramadan-count">
+        <div class="ramadan-count__card ramadan-count__card--sahur">
+          <span class="ramadan-count__label">🌅 Sahur (İmsak)</span>
+          <span class="ramadan-count__time" id="sahurTime">--:--</span>
+          <span class="ramadan-count__left" id="sahurLeft">--:--:--</span>
+        </div>
+        <div class="ramadan-count__card ramadan-count__card--iftar">
+          <span class="ramadan-count__label">🌇 İftar (Akşam)</span>
+          <span class="ramadan-count__time" id="iftarTime">--:--</span>
+          <span class="ramadan-count__left" id="iftarLeft">--:--:--</span>
+        </div>
+      </div>
+
+      <!-- Hatim takibi -->
+      <div class="card hatim">
+        <div class="hatim__head">
+          <h2 class="section-title">Hatim Takibi</h2>
+          <span class="hatim__progress-text" id="hatimProgress">0/30</span>
+        </div>
+        <div class="hatim__bar"><div class="hatim__bar-fill" id="hatimBarFill"></div></div>
+        <div class="hatim__grid" id="hatimGrid"></div>
+        <button class="btn-ghost" id="hatimReset">Hatim Kaydını Sıfırla</button>
+      </div>
+
+      <!-- Günün duası -->
+      <article class="card card--hadith">
+        <header class="card__head"><span class="card__tag card__tag--gold">Günün Duası</span></header>
+        <p class="card__arabic" id="duaArabic"></p>
+        <p class="card__text" id="duaText"></p>
+        <footer class="card__foot"><span class="card__source" id="duaSource"></span></footer>
+      </article>
+
+      <div class="safe-bottom"></div>
+    </section>
+
+    <!-- ======== AYARLAR (ayrı ekran) ======== -->
+    <section class="screen" data-screen="settings">
+      <header class="settings-head">
+        <button class="settings-back" data-goto="home" aria-label="Geri dön">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        </button>
+        <div class="settings-head__title">
+          <h1 class="screen__title">Ayarlar</h1>
+          <span class="screen__sub">Uygulama tercihlerinizi yönetin</span>
+        </div>
+      </header>
+      <div id="settingsContent"></div>
+      <div class="safe-bottom"></div>
+    </section>
+
+  </div>
+
+  <!-- ======== BOTTOM NAVIGATION ======== -->
+  <nav class="bottom-nav" aria-label="Ana menü">
+    <button class="nav-item nav-item--active" data-tab="home"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/><path d="M9 22V12h6v10"/></svg><span>Ana Sayfa</span></button>
+    <button class="nav-item" data-tab="times"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 22V8l9-5 9 5v14"/><path d="M7 22v-6h4v6"/><path d="M17 22v-6h-4v6"/><path d="M9 3v5"/></svg><span>Vakitler</span></button>
+    <button class="nav-item nav-item--center" data-tab="ai" aria-label="AI Asistan"><span class="nav-center"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 4.6 4.6 1.9-4.6 1.9L12 16l-1.9-4.6-4.6-1.9 4.6-1.9Z"/><path d="M19 3l.7 1.8 1.8.7-1.8.7L19 8l-.7-1.8-1.8-.7 1.8-.7Z"/></svg></span><span>AI</span></button>
+    <button class="nav-item" data-tab="living"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78Z"/></svg><span>Yaşamak</span></button>
+    <button class="nav-item" data-tab="settings"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg><span>Ayarlar</span></button>
+  </nav>
+
+  <!-- Küçük ses durdurma butonu (ses çalarken belirir) -->
+  <button id="stopSoundBtn" class="stop-sound-btn" aria-label="Sesi durdur" title="Sesi durdur">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5Z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+  </button>
+
+  <!-- Veri + Mantık -->
+  <script src="data/content.js"></script>
+  <script src="data/locations.js"></script>
+  <script src="js/ezan-audio.js"></script>
+  <script src="js/capacitor-bridge.js"></script>
+  <script src="js/app.js"></script>
+
+  <!-- OneSignal Push (uygulama kapalıyken ezan bildirimi)
+       ONESIGNAL_APP_ID'yi js/app.js'e yazdıktan sonra aşağıdaki satırı aktifleştir:
+  <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+  -->
+</body>
+</html>

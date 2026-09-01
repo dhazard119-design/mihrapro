@@ -1,0 +1,6 @@
+# Mihrap — robots.txt
+User-agent: *
+Allow: /
+
+# Site haritası (alan adını güncelle)
+Sitemap: https://mihrap.app/sitemap.xml

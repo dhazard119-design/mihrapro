@@ -1,0 +1,44 @@
+# ===================================================================
+# Mihrap — Netlify yapılandırması
+# Klasörü Netlify'a sürükleyip bırakman yeterli; bu dosya başlıkları ayarlar.
+# ===================================================================
+
+[build]
+  publish = "."
+
+# Statik site — derleme adımı yok.
+
+# Sunucusuz fonksiyonlar (AI asistan Gemini proxy'si)
+[functions]
+  directory = "netlify/functions"
+
+# /api/gemini → Netlify function'a yönlendir (Vercel ile aynı yol)
+[[redirects]]
+  from = "/api/gemini"
+  to = "/.netlify/functions/gemini"
+  status = 200
+  force = true
+
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "no-cache"
+    Service-Worker-Allowed = "/"
+
+[[headers]]
+  for = "/manifest.webmanifest"
+  [headers.values]
+    Content-Type = "application/manifest+json"
+    Cache-Control = "no-cache"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+# Tek sayfalık uygulama değil; tüm yollar statik dosyalara denk gelir.

@@ -1,0 +1,55 @@
+{
+  "name": "Mihrap — Ezan Vakti & İslami Yaşam",
+  "short_name": "Mihrap",
+  "description": "Diyanet uyumlu ezan vakitleri, kıble pusulası, günlük hadis, sünnet, Esmaül Hüsna ve ilahi kıssalar. Premium İslami yaşam uygulaması.",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "lang": "tr",
+  "dir": "ltr",
+  "theme_color": "#0b1e33",
+  "background_color": "#0a1220",
+  "categories": ["lifestyle", "utilities", "education"],
+  "icons": [
+    {
+      "src": "assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Bugünün Vakitleri",
+      "short_name": "Vakitler",
+      "url": "/?screen=times",
+      "icons": [{ "src": "assets/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "İslamı Yaşamak",
+      "short_name": "Yaşamak",
+      "url": "/?screen=living",
+      "icons": [{ "src": "assets/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Ayarlar",
+      "short_name": "Ayarlar",
+      "url": "/?screen=settings",
+      "icons": [{ "src": "assets/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}
